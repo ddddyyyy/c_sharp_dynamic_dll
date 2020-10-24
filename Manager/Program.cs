@@ -1,19 +1,28 @@
-﻿using Manager.Service;
+﻿using Manager.Handler;
+using Manager.Service;
 using System;
+using System.Reflection;
+using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 
 namespace Manager
 {
+
     class Program
     {
+
         static void Main(string[] args)
         {
             try
             {
                 Uri baseAddress = new Uri("http://127.0.0.1:7788/common"); //服务模板的CommonService的访问地址前缀
                 WebServiceHost commonService = new WebServiceHost(new CommonServiceImpl(), baseAddress);//绑定CommonService服务
+
+                commonService.Authorization.ServiceAuthorizationManager = new MyServiceAuthorizationManager(); // 配置跨域
+
                 commonService.Open();
-                Console.WriteLine("服务开启成功");
+                Console.WriteLine("服务开启成功，监听了7788端口");
                 Console.WriteLine("输入任意键关闭程序");
                 Console.ReadKey();
                 commonService.Close();

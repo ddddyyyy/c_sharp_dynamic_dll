@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager", "Manager\Manager.csproj", "{EFB5895D-DAEF-42DE-903A-7E068E7857CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DllTest", "DllTest\DllTest.csproj", "{7FE48CD1-976B-4A38-8C13-F26DC2D3BF2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryTest", "ClassLibraryTest\ClassLibraryTest.csproj", "{234D5359-FB6D-4CD9-B761-6CC4F98219C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,19 @@ Global
 		{EFB5895D-DAEF-42DE-903A-7E068E7857CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFB5895D-DAEF-42DE-903A-7E068E7857CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB5895D-DAEF-42DE-903A-7E068E7857CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FE48CD1-976B-4A38-8C13-F26DC2D3BF2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE48CD1-976B-4A38-8C13-F26DC2D3BF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE48CD1-976B-4A38-8C13-F26DC2D3BF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE48CD1-976B-4A38-8C13-F26DC2D3BF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{234D5359-FB6D-4CD9-B761-6CC4F98219C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{234D5359-FB6D-4CD9-B761-6CC4F98219C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{234D5359-FB6D-4CD9-B761-6CC4F98219C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{234D5359-FB6D-4CD9-B761-6CC4F98219C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15356D89-863D-4D20-8155-8E81C0241A33}
 	EndGlobalSection
 EndGlobal

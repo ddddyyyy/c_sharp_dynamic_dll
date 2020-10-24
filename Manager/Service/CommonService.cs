@@ -1,5 +1,7 @@
 ﻿using Manager.Model;
+using System.Net.Http;
 using System.ServiceModel;
+using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 
 
@@ -10,33 +12,35 @@ namespace Manager.Service
     /// </summary>
     class CommonService
     {
-        /// <summary>
-        /// 简单定义两种方法，1、GetScore方法：通过GET请求传入name，返回对应的成绩；2、GetInfo方法：通过POST请求，传入Info对象，查找对应的User并返回给客户端
-        /// </summary>
+
         [ServiceContract]
         public interface ICommonService
         {
 
+            /// <summary>
+            ///  返回网页
+            /// </summary>
+            /// <returns></returns>
             [OperationContract]
-            [WebGet(UriTemplate = "test",
+            [WebGet(UriTemplate = "/index",
                 BodyStyle = WebMessageBodyStyle.Bare,
-                RequestFormat = WebMessageFormat.Json,
-                ResponseFormat = WebMessageFormat.Json)]
-            WebResult GetTest();
+                RequestFormat = WebMessageFormat.Json)]
+            System.IO.Stream GetHtml();
 
 
             /// <summary>
             /// 提交任务（调用dll）
             /// </summary>
-            /// <param name="fileNames">文件在服务器的路径集合</param>
+            /// <param name="fileNames">文件在服务器的路径的集合</param>
+            /// <param name="dllName">要调用的dll的名字</param>
             [OperationContract]
             [ServiceKnownType(typeof(string[]))]
             [WebInvoke(Method = "POST",
-                UriTemplate = "task",
+                UriTemplate = "task/{dllName}",
                 BodyStyle = WebMessageBodyStyle.Bare,
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json)]
-            WebResult SubmitTask(string[] fileNames);
+            WebResult SubmitTask(string[] fileNames, string dllName);
 
         }
 
