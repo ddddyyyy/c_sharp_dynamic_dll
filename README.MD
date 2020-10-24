@@ -1,6 +1,6 @@
 # 管理端
 
->　动态加载DLL的实现在Proxy.cs文件，其它关于Web Service 的代码可忽略
+>　动态加载DLL的实现在[Proxy.cs](https://github.com/ddddyyyy/c_sharp_dynamic_dll/blob/main/Manager/Proxy.cs)文件，其它关于Web Service 的代码可忽略
 
 ## 功能
 
