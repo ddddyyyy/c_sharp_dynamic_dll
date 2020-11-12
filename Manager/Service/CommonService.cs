@@ -42,6 +42,21 @@ namespace Manager.Service
                 ResponseFormat = WebMessageFormat.Json)]
             WebResult SubmitTask(string[] fileNames, string dllName);
 
+
+            /// <summary>
+            /// 上传文件
+            /// </summary>
+            /// <param name="filename">要上传的文件名</param>
+            /// <param name="length">文件长度</param>
+            /// <param name="s">文件流</param>
+            /// <returns>文件上传成功之后文件在系统中的路径</returns>
+            [OperationContract]
+            [WebInvoke(Method = "POST",
+                BodyStyle = WebMessageBodyStyle.Bare,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "Uploadfile?fileName={filename}&length={length}")]
+            WebResult UploadFile(string filename, int length, System.IO.Stream s);
+
         }
 
 

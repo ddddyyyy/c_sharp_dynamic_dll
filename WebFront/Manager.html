@@ -11,6 +11,26 @@
 </head>
 
 <body>
+
+	<form class="box lightBox" id="fileForm">
+        <div style="padding: 1.25rem;">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">上传文件</h4>
+					<hr>
+					<input type="file" id="one" name="one">文件1</input>
+					<br>
+					<input type="file" id="two" name="two">文件2</input>
+                </div>
+            </div>
+            <div class="bg-primary text-white foot_div">
+                <div style="align-content: center">
+                    <button type="reset" class="btn btn-danger">重置</button>
+                    <button type="button" class="btn btn-light" id="uploadBtn">上传</button>
+                </div>
+            </div>
+    </form>
+	<br>
     <form class="box lightBox" id="flowForm">
         <div style="padding: 1.25rem;">
             <div class="card">
@@ -43,6 +63,7 @@
                 </div>
             </div>
     </form>
+
 </body>
 <script>
     $('#submitBtn').on('click', function () {
@@ -66,6 +87,38 @@
                 alert(exception.toString());
             }
         });
+    });
+   $('#uploadBtn').on('click', function () {
+		//上传文件1
+		var files = $('#one').prop('files');
+		var data1 = new FormData();
+		data1.append('file', files[0]);
+		$.ajax({
+			url: 'http://127.0.0.1:7788/common/Uploadfile?fileName=' + files[0].name + '&length=' + files[0].size,
+			type: 'POST',
+			data: data1,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function (data, status, xhr) {
+                $('#file1').val(data['data']) //上传成功则将返回的路径设置到文本输入框
+            },
+		});
+		//上传文件2
+		files = $('#two').prop('files');
+		var data2 = new FormData();
+		data2.append('file', files[0]);
+		$.ajax({
+			url: 'http://127.0.0.1:7788/common/Uploadfile?fileName=' + files[0].name + '&length=' + files[0].size,
+			type: 'POST',
+			data: data2,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function (data, status, xhr) {
+                $('#file2').val(data['data'])
+            },
+		});
     });
 </script>
 
@@ -102,7 +155,7 @@
     }
 
     .box {
-        width: 40%;
+        width: 50%;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 

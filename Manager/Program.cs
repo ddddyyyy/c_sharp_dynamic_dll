@@ -18,8 +18,14 @@ namespace Manager
             {
                 Uri baseAddress = new Uri("http://127.0.0.1:7788/common"); //服务模板的CommonService的访问地址前缀
                 WebServiceHost commonService = new WebServiceHost(new CommonServiceImpl(), baseAddress);//绑定CommonService服务
-
                 commonService.Authorization.ServiceAuthorizationManager = new MyServiceAuthorizationManager(); // 配置跨域
+
+                //为了防止413，提高request header 大小
+                WebHttpBinding restBinding = new WebHttpBinding();
+                restBinding.MaxReceivedMessageSize = 1048576000;
+                restBinding.TransferMode = TransferMode.Streamed;
+                ServiceEndpoint restService = commonService.AddServiceEndpoint(typeof(CommonService.ICommonService), restBinding, "");
+                restService.Behaviors.Add(new WebHttpBehavior());
 
                 commonService.Open();
                 Console.WriteLine("服务开启成功，监听了7788端口");
