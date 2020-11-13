@@ -55,6 +55,7 @@
     <Compile Include="Proxy.cs" />
     <Compile Include="Service\CommonService.cs" />
     <Compile Include="Service\CommonServiceImpl.cs" />
+    <Compile Include="Util\MultipartParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

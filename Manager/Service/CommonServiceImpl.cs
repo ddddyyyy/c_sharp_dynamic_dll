@@ -1,10 +1,12 @@
 ﻿using Manager.Handler;
 using Manager.Model;
+using Manager.Util;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Text.RegularExpressions;
 using static Manager.Service.CommonService;
 
 namespace Manager.Service
@@ -49,15 +51,10 @@ namespace Manager.Service
             
             using (targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))//写文件
             {
-                //read from the input stream in 6K chunks
-                //and save to output stream
-                const int bufferLen = 65000;
-                byte[] buffer = new byte[bufferLen];
-                int count = 0;
-
-                while ((count = sourceStream.Read(buffer, 0, bufferLen)) > 0)
+                MultipartParser parser = new MultipartParser(s);
+                if (parser != null && parser.Success)
                 {
-                    targetStream.Write(buffer, 0, count);
+                    targetStream.Write(parser.FileContents, 0, parser.FileContents.Length);
                 }
 
                 targetStream.Close();
@@ -66,6 +63,8 @@ namespace Manager.Service
 
             return WebResult.success(filePath);
         }
+
+
 
     }
 }
