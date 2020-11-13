@@ -48,7 +48,7 @@ namespace Manager.Service
 
             Stream sourceStream = s;
             string filePath = Path.Combine(System.Environment.CurrentDirectory, "WebFront", filename); //文件存放的路径写死为当前运行目录下的WebFront文件夹
-            
+
             using (targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))//写文件
             {
                 MultipartParser parser = new MultipartParser(s);
@@ -61,7 +61,26 @@ namespace Manager.Service
                 sourceStream.Close();
             }
 
-            return WebResult.success(filePath);
+            if (targetStream == null)
+            {
+                return WebResult.fail("文件上传失败");
+            }
+            else
+            {
+                return WebResult.success(filePath);
+            }
+        }
+
+        public  WebResult Search(string[] args, string dllName)
+        {
+            if (Proxy.invokeTestMethod(dllName, args))
+            {
+                return WebResult.success(null);
+            }
+            else
+            {
+                return WebResult.fail("执行任务失败");
+            }
         }
 
 

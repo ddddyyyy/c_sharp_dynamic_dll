@@ -57,6 +57,20 @@ namespace Manager.Service
                 UriTemplate = "Uploadfile?fileName={filename}&length={length}")]
             WebResult UploadFile(string filename, int length, System.IO.Stream s);
 
+            /// <summary>
+            /// 查询
+            /// </summary>
+            /// <param name="args">参数列表</param>
+            /// <param name="dllName">要调用的dll的名字</param>
+            [OperationContract]
+            [ServiceKnownType(typeof(string[]))]
+            [WebInvoke(Method = "POST",
+                UriTemplate = "search/{dllName}",
+                BodyStyle = WebMessageBodyStyle.Bare,
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json)]
+            WebResult Search(string[] args, string dllName);
+
         }
 
 

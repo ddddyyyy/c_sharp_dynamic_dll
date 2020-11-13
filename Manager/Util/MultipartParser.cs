@@ -16,11 +16,6 @@ namespace Manager.Util
             this.Parse(stream, Encoding.UTF8);
         }
 
-        public MultipartParser(Stream stream, Encoding encoding)
-        {
-            this.Parse(stream, encoding);
-        }
-
         /// <summary>
         /// 
         /// </summary>
