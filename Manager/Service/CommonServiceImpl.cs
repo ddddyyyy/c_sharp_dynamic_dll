@@ -22,24 +22,17 @@ namespace Manager.Service
     class CommonServiceImpl : ICommonService
     {
 
-        public Stream GetHtml()
+        public Stream GetHtml(string path)
         {
-            string result = File.ReadAllText(Path.Combine(System.Environment.CurrentDirectory, @"WebFront\Manager.html"));
+            string result = File.ReadAllText(Path.Combine(System.Environment.CurrentDirectory, @"WebFront\" + path + ".html"));
             byte[] resultBytes = Encoding.UTF8.GetBytes(result);
             WebOperationContext.Current.OutgoingResponse.ContentType = "text/html";
             return new MemoryStream(resultBytes);
         }
 
-        public WebResult SubmitTask(string[] fileNames, string dllName)
+        public WebResult SubmitTask(string[] fileNames, string dllName, string methodName)
         {
-            if (Proxy.invokeTestMethod(dllName, fileNames))
-            {
-                return WebResult.success(null);
-            }
-            else
-            {
-                return WebResult.fail("执行任务失败");
-            }
+            return WebResult.success(Proxy.invoke(fileNames, dllName, methodName));
         }
 
         public WebResult UploadFile(string filename, int length, Stream s)
@@ -71,19 +64,10 @@ namespace Manager.Service
             }
         }
 
-        public  WebResult Search(string[] args, string dllName)
+        public WebResult Search(string[] args, string dllName, string methodName)
         {
-            if (Proxy.invokeTestMethod(dllName, args))
-            {
-                return WebResult.success(null);
-            }
-            else
-            {
-                return WebResult.fail("执行任务失败");
-            }
+            return WebResult.success(Proxy.invoke(args, dllName, methodName));
         }
-
-
 
     }
 }

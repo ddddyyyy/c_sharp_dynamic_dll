@@ -7,7 +7,7 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>管理端</title>
+    <title>地质沉降</title>
 </head>
 
 <body>
@@ -19,8 +19,6 @@
                     <h4 class="card-title">上传文件</h4>
 					<hr>
 					<input type="file" id="one" name="one">文件1</input>
-					<br>
-					<input type="file" id="two" name="two">文件2</input>
                 </div>
             </div>
             <div class="bg-primary text-white foot_div">
@@ -35,23 +33,12 @@
         <div style="padding: 1.25rem;">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">添加任务</h4>
+                    <h4 class="card-title">数据存入</h4>
                     <hr>
-                    <div>
-                        <label for="dllName" class="text-muted input_label">DLL名</label>
-                        <input type="text" id="dllName" name="dllName" placeholder="DLL名称" class="text_input" value="DllTest">
-                    </div>
-                    <br>
                     <div>
                         <label for="file1" class="text-muted input_label">文件1</label>
                         <input type="text" id="file1" name="file1" placeholder="文件在服务器中的路径" class="text_input"
                             value="文件1">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="file2" class="text-muted input_label">文件2</label>
-                        <input type="text" id="file2" name="file2" placeholder="文件在服务器中的路径" class="text_input"
-                            value="文件2">
                     </div>
                 </div>
             </div>
@@ -72,15 +59,14 @@
         for (let x in params) {
             values[params[x].name] = params[x].value;
         }
-        console.log(values)
         $.ajax({
-            url: "http://127.0.0.1:7788/common/task/" + values['dllName'],
+            url: "http://127.0.0.1:7788/common/task/Subsidence/storeHistorySubsidenceData", //Subsidence的数据存入接口
             type: 'POST',
-            data: JSON.stringify([values['file1'], values['file2']]), // 传到后台的数组
+            data: JSON.stringify([values['file1']]), // 传到后台的数组
             dataType: 'json',
             contentType: 'application/json',
             success: function (data, status, xhr) {
-                alert(data['msg'])
+                alert(data['data'])
             },
             Error: function (xhr, error, exception) {
                 // handle the error.
@@ -102,21 +88,6 @@
 			contentType: false,
 			success: function (data, status, xhr) {
                 $('#file1').val(data['data']) //上传成功则将返回的路径设置到文本输入框
-            },
-		});
-		//上传文件2
-		files = $('#two').prop('files');
-		var data2 = new FormData();
-		data2.append('file', files[0]);
-		$.ajax({
-			url: 'http://127.0.0.1:7788/common/Uploadfile?fileName=' + files[0].name + '&length=' + files[0].size,
-			type: 'POST',
-			data: data2,
-			cache: false,
-			processData: false,
-			contentType: false,
-			success: function (data, status, xhr) {
-                $('#file2').val(data['data'])
             },
 		});
     });

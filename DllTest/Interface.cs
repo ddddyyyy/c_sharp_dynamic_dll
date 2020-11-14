@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ESRI.ArcGIS.Carto;
+using System;
 
 namespace DllTest
 {
@@ -9,6 +10,8 @@ namespace DllTest
     {
         public bool test(string[] names)
         {
+            Map map = new Map();
+            Console.WriteLine(map.Name);
             Console.WriteLine("I am DllTest");
             Console.WriteLine("接收到了数组：{0}", string.Join(" ", names));
             return true;

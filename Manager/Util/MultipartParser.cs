@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Manager.Util
 {
@@ -17,7 +15,7 @@ namespace Manager.Util
         }
 
         /// <summary>
-        /// 
+        /// 解析文件流
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="encoding"></param>

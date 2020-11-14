@@ -22,25 +22,26 @@ namespace Manager.Service
             /// </summary>
             /// <returns></returns>
             [OperationContract]
-            [WebGet(UriTemplate = "/index",
+            [WebGet(UriTemplate = "/index/{path}",
                 BodyStyle = WebMessageBodyStyle.Bare,
                 RequestFormat = WebMessageFormat.Json)]
-            System.IO.Stream GetHtml();
+            System.IO.Stream GetHtml(string path);
 
 
             /// <summary>
-            /// 提交任务（调用dll）
+            /// 数据存储
             /// </summary>
             /// <param name="fileNames">文件在服务器的路径的集合</param>
             /// <param name="dllName">要调用的dll的名字</param>
+            /// <param name="methodName">要调用的方法名</param>
             [OperationContract]
             [ServiceKnownType(typeof(string[]))]
             [WebInvoke(Method = "POST",
-                UriTemplate = "task/{dllName}",
+                UriTemplate = "task/{dllName}/{methodName}",
                 BodyStyle = WebMessageBodyStyle.Bare,
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json)]
-            WebResult SubmitTask(string[] fileNames, string dllName);
+            WebResult SubmitTask(string[] fileNames, string dllName, string methodName);
 
 
             /// <summary>
@@ -62,14 +63,15 @@ namespace Manager.Service
             /// </summary>
             /// <param name="args">参数列表</param>
             /// <param name="dllName">要调用的dll的名字</param>
+            /// <param name="methodName">要调用的方法名</param>
             [OperationContract]
             [ServiceKnownType(typeof(string[]))]
             [WebInvoke(Method = "POST",
-                UriTemplate = "search/{dllName}",
+                UriTemplate = "search/{dllName}/{methodName}",
                 BodyStyle = WebMessageBodyStyle.Bare,
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json)]
-            WebResult Search(string[] args, string dllName);
+            WebResult Search(string[] args, string dllName, string methodName);
 
         }
 

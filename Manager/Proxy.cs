@@ -79,6 +79,23 @@ namespace Manager
             return (bool)res;//返回调用函数的返回值，这里将object强制转换为bool
         }
 
+        /// <summary>
+        /// 代理dll的某个方法
+        /// </summary>
+        /// <param name="args">参数：字符串列表</param>
+        /// <param name="dllName">dll名字</param>
+        /// <param name="method">要执行的方法名</param>
+        /// <returns>string数组</returns>
+        public static string[] invoke(string[] args, string dllName, string method)
+        {
+            string callingDomainName = AppDomain.CurrentDomain.FriendlyName;
+            AppDomain ad = AppDomain.CreateDomain("DLL dynamic Load - " + DateTime.Now);
+            ProxyObject obj = (ProxyObject)ad.CreateInstanceFromAndUnwrap(callingDomainName, "Manager.ProxyObject");
+            obj.LoadAssembly(dllName);
+            var res = obj.Invoke(dllName + ".Interface", method, new object[] { args });
+            AppDomain.Unload(ad);
+            return (string[])res;
+        }
 
 
     }
