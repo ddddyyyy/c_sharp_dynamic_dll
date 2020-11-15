@@ -7,6 +7,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using static Manager.Service.CommonService;
 
 namespace Manager.Service
@@ -15,8 +16,9 @@ namespace Manager.Service
     /// 服务模板实现
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
-        ConcurrencyMode = ConcurrencyMode.Single,
-        IncludeExceptionDetailInFaults = true)]
+        ConcurrencyMode = ConcurrencyMode.Multiple, // 并发模式
+        IncludeExceptionDetailInFaults = true,
+        UseSynchronizationContext = false)]
     [ExceptionBehaviourAttribute(typeof(ExceptionHandler))]//配置异常处理器
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     class CommonServiceImpl : ICommonService
@@ -32,6 +34,7 @@ namespace Manager.Service
 
         public WebResult SubmitTask(string[] fileNames, string dllName, string methodName)
         {
+            Thread.Sleep(60000);
             return WebResult.success(Proxy.invoke(fileNames, dllName, methodName));
         }
 
@@ -66,6 +69,7 @@ namespace Manager.Service
 
         public WebResult Search(string[] args, string dllName, string methodName)
         {
+            Thread.Sleep(60000);
             return WebResult.success(Proxy.invoke(args, dllName, methodName));
         }
 

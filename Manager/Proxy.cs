@@ -94,9 +94,20 @@ namespace Manager
             obj.LoadAssembly(dllName);
             var res = obj.Invoke(dllName + ".Interface", method, new object[] { args });
             AppDomain.Unload(ad);
-            return (string[])res;
+
+            if (typeof(string[]) == res.GetType())
+            {
+                return (string[])res;
+            }
+            else if (typeof(bool) == res.GetType())
+            {
+                return new string[] { "false" };
+            }
+            else
+            {
+                return new string[] { "unknow return type" };
+            }
+
         }
-
-
     }
 }
