@@ -67,8 +67,9 @@
     <Compile Include="Proxy.cs" />
     <Compile Include="Service\CommonService.cs" />
     <Compile Include="Service\CommonServiceImpl.cs" />
-    <Compile Include="Util\ConsoleHelper.cs" />
+    <Compile Include="Util\TextBoxWriter.cs" />
     <Compile Include="Util\MultipartParser.cs" />
+    <Compile Include="Util\Snowflake.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,9 +1,11 @@
 ﻿using Manager.Handler;
 using Manager.Service;
+using Manager.Util;
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Web;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Manager
@@ -13,9 +15,12 @@ namespace Manager
 
         WebServiceHost commonService;
 
+
         public Main()
         {
             InitializeComponent();
+            Console.SetOut(new TextBoxWriter(textBox1)); //控制台输出重定向到textBox，DLL中的输出不行
+
             try
             {
                 Uri baseAddress = new Uri("http://127.0.0.1:7788/common"); //服务模板的CommonService的访问地址前缀

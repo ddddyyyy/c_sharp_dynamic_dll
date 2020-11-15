@@ -48,7 +48,7 @@
         }
         console.log(values)
         $.ajax({
-            url: "http://127.0.0.1:7788/common/task/Subsidence/getHistorySubsidenceData", //根据经纬度查询地质沉降数据库，并返回查询结果
+            url: "http://127.0.0.1:7788/common/search/Subsidence/getHistorySubsidenceData", //根据经纬度查询地质沉降数据库，并返回查询结果
             type: 'POST',
             data: JSON.stringify([values['lat'], values['lon']]), // 传到后台的数组
             dataType: 'json',
