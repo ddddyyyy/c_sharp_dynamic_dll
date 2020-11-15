@@ -27,7 +27,7 @@
 ## 项目运行
 
 - 以管理员身份运行exe文件
-- [访问地址进入网页](http://127.0.0.1:7788/common/index/{网页名，如Subsidence})
+- 访问地址进入网页：http://127.0.0.1:7788/common/index/{网页名，如Subsidence}
 
 ## Manager项目目录说明
 
