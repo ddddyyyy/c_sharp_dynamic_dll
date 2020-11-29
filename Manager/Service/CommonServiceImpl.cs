@@ -16,7 +16,7 @@ namespace Manager.Service
     /// <summary>
     /// 服务模板实现
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall,
         ConcurrencyMode = ConcurrencyMode.Multiple, // 并发模式
         IncludeExceptionDetailInFaults = true)]
     [ExceptionBehaviourAttribute(typeof(ExceptionHandler))]//配置异常处理器
@@ -61,6 +61,7 @@ namespace Manager.Service
                     try
                     {
                         res = Proxy.invoke(fileNames, dllName, methodName);
+                        Thread.Sleep(1000);
                     }
                     catch (Exception e)
                     {
@@ -141,6 +142,7 @@ namespace Manager.Service
                     try
                     {
                         res = Proxy.invoke(args, dllName, methodName);
+                        Thread.Sleep(1000);
                     }
                     catch (Exception e)
                     {
