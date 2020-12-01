@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.ServiceModel;
+using System.Windows.Forms;
 
 namespace Manager
 {
@@ -19,6 +20,10 @@ namespace Manager
 
         Assembly assembly = null;
 
+        public void resetConsoleOutput(Util.TextBoxWriter writer)
+        {
+            Console.SetOut(writer);
+        }
 
         /// <summary>
         /// 通过路径加载dll
@@ -56,28 +61,21 @@ namespace Manager
                 return false;
             }
             Object obj = Activator.CreateInstance(tp);
-            return method.Invoke(obj, args);
+            object res = method.Invoke(obj, args);
+            if (obj.GetType().IsSubclassOf(typeof(Form)))
+            {
+                (obj as Form).Close(); // 释放新建的窗口资源
+            }
+            if (typeof(bool) == res.GetType()) // bool值的返回值封装成字符串数组
+            {
+                return new string[] { Convert.ToString(res) };
+            }
+            return res;
 
         }
     }
     class Proxy
     {
-        /// <summary>
-        /// 测试代理方法
-        /// </summary>
-        /// <param name="dllName">dll名</param>
-        /// <param name="names">参数：字符串列表</param>
-        /// <returns></returns>
-        public static bool invokeTestMethod(string dllName, string[] names)
-        {
-            string callingDomainName = AppDomain.CurrentDomain.FriendlyName;//Thread.GetDomain().FriendlyName; 
-            AppDomain ad = AppDomain.CreateDomain("DLL dynamic Load - " + DateTime.Now); // 使用时间标识domain
-            ProxyObject obj = (ProxyObject)ad.CreateInstanceFromAndUnwrap(callingDomainName, "Manager.ProxyObject"); // 代理类
-            obj.LoadAssembly(dllName); // 加载dll
-            var res = obj.Invoke(dllName + ".Interface", "test", new object[] { names }); // 执行dll中Interface类的test方法
-            AppDomain.Unload(ad);//卸载dll
-            return (bool)res;//返回调用函数的返回值，这里将object强制转换为bool
-        }
 
         /// <summary>
         /// 代理dll的某个方法
@@ -91,17 +89,17 @@ namespace Manager
             string callingDomainName = AppDomain.CurrentDomain.FriendlyName;
             AppDomain ad = AppDomain.CreateDomain("DLL dynamic Load - " + DateTime.Now);
             ProxyObject obj = (ProxyObject)ad.CreateInstanceFromAndUnwrap(callingDomainName, "Manager.ProxyObject");
+            obj.resetConsoleOutput(Program.writer); // 重定向控制台输出到文本框
             obj.LoadAssembly(dllName);
             var res = obj.Invoke(dllName + ".Interface", method, new object[] { args });
             AppDomain.Unload(ad);
-
             if (typeof(string[]) == res.GetType())
             {
-                return (string[])res;
+                return res as string[];
             }
             else if (typeof(bool) == res.GetType())
             {
-                return new string[] { "false" };
+                return new string[] { "reflection occur error" };
             }
             else
             {

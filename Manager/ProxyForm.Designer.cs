@@ -1,6 +1,6 @@
 ﻿namespace Manager
 {
-    partial class Main
+    partial class ProxyForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,21 +33,24 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(-2, -2);
+            this.textBox1.Location = new System.Drawing.Point(-1, -3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox1.Size = new System.Drawing.Size(803, 456);
-            this.textBox1.TabIndex = 0;
+            this.textBox1.TabIndex = 1;
+            this.textBox1.WordWrap = false;
             // 
-            // Main
+            // ProxyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.textBox1);
-            this.Name = "Main";
-            this.Text = "Main";
+            this.Name = "ProxyForm";
+            this.Text = "ProxyForm";
+            this.Load += new System.EventHandler(this.ProxyForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

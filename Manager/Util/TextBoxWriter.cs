@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Text;
 
 namespace Manager.Util
 {
+    /// <summary>
+    /// 将控制台的输出记录到debug日志里面
+    /// </summary>
     class TextBoxWriter : TextWriter
     {
-        TextBox textBox;
+        TextWriter console;
         delegate void WriteFunc(string value);
-        WriteFunc write;
-        WriteFunc writeLine;
 
-        public TextBoxWriter(TextBox textBox)
+        public TextBoxWriter(TextWriter console)
         {
-            this.textBox = textBox;
-            write = Write;
-            writeLine = WriteLine;
+            this.console = console;
         }
 
         /// <summary>
@@ -36,14 +31,10 @@ namespace Manager.Util
         /// </summary>
         public override void Write(string value)
         {
-            if (textBox.InvokeRequired)
-            {
-                textBox.BeginInvoke(write, value);
-            }
-            else
-            {
-                textBox.AppendText(value);
-            }
+            Logger.Default.Debug(value);
+            Console.SetOut(console);
+            Console.Write(value);
+            Console.SetOut(this);
         }
 
         /// <summary>
@@ -51,16 +42,10 @@ namespace Manager.Util
         /// </summary>
         public override void WriteLine(string value)
         {
-            if (textBox.InvokeRequired)
-            {
-                textBox.BeginInvoke(writeLine, value);
-            }
-            else
-            {
-                textBox.AppendText(value);
-                textBox.AppendText(this.NewLine);
-            }
-
+            Logger.Default.Debug(value);
+            Console.SetOut(console);
+            Console.WriteLine(value);
+            Console.SetOut(this);
         }
     }
 }

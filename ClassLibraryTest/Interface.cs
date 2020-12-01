@@ -1,17 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
 
 namespace ClassLibraryTest
 {
-    /// <summary>
-    /// DLL暴露的接口
-    /// </summary>
-    public class Interface
+    public partial class Interface : Component
     {
-        public string[] test(string[] files)
+        public Interface()
         {
-            Console.WriteLine("I am ClassLibraryTest");
-            Console.WriteLine("接收到了数组：{0}", string.Join(" ", files));
-            return new string[] { };
+            InitializeComponent();
+        }
+
+        public Interface(IContainer container)
+        {
+            container.Add(this);
+
+            InitializeComponent();
         }
     }
 }
